@@ -44,12 +44,15 @@ class Song
     self.all.sort_by { |s| s.name}
   end 
   
-  def self.new_from_filename(mp3_formatted_file)
-    c = self.new 
-    c.name = mp3_formatted_file.split(/[^a-zA-Z\s]|\s-\s/)[1] 
-    c.artist_name = mp3_formatted_file.split(/[^a-zA-Z\s]|\s-\s/)[0]
-    c
-  end 
+def self.new_from_filename(filename)
+   song = self.new
+   data = filename.split(" - ")
+   song_name = data[1].split(".")
+   song_name.delete("mp3")
+   song.name = song_name[0]
+   song.artist_name = data[0]
+   song
+ end
   
   def self.create_from_filename(mp3_formatted_file)
     c = self.new 
